@@ -1,4 +1,6 @@
-﻿using OnlineStore.DAL;
+﻿using Newtonsoft.Json;
+using OnlineStore.DAL;
+using OnlineStore.Models;
 using OnlineStore.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,23 @@ namespace OnlineStore.Controllers
         {
             List<Tbl_Category> allcategories = _unitOfWork.GetRepositoryInstance<Tbl_Category>().GetAllRecordsIQueryable().Where(i => i.IsDelete == false).ToList();
             return View(allcategories);
+        }
+        public ActionResult AddCategory()
+        {
+            return UpdateCategory(0);
+        }
+        public ActionResult UpdateCategory(int categoryId)
+        {
+            CategoryDetail cd;
+                if(categoryId != null)
+            {
+                cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unitOfWork.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId)));
+            }
+            else
+            {
+                cd = new CategoryDetail();
+            }
+            return View("UpdateCategory", cd);
         }
     }
 }
