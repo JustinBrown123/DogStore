@@ -8,11 +8,12 @@ namespace OnlineStore.Repository
 {
     public interface IRepository <Tbl_Entity> where Tbl_Entity: class
     {
+        IEnumerable<Tbl_Entity> GetProduct();
         IEnumerable<Tbl_Entity> GetAllRecords();
         IQueryable<Tbl_Entity> GetAllRecordsIQueryable();
         int GetAllrecordCount();
         void Add(Tbl_Entity entity);
-        void Updat(Tbl_Entity entity);
+        void Update(Tbl_Entity entity);
         void UpdateByWhereClause(Expression<Func<Tbl_Entity, bool>> wherePredict, Action<Tbl_Entity> ForEachPredict);
         Tbl_Entity GetFirstorDefault(int recordId);
         void Remove(Tbl_Entity entity);
