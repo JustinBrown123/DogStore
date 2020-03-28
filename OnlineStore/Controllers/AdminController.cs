@@ -32,25 +32,19 @@ namespace OnlineStore.Controllers
         }
         public ActionResult Categories()
         {
-            List<Tbl_Category> allcategories = _unitOfWork.GetRepositoryInstance<Tbl_Category>().GetAllRecordsIQueryable().Where(i => i.IsDelete == false).ToList();
+            List<Tbl_Category> allcategories = _unitOfWork.GetRepositoryInstance<Tbl_Category>().GetAllRecordsIQueryable().Where(i => i.IsDelete != true).ToList();
             return View(allcategories);
         }
         public ActionResult AddCategory()
         {
-            return UpdateCategory(0);
+            return View();
         }
-        public ActionResult UpdateCategory(int categoryId)
+
+        [HttpPost]
+        public ActionResult AddCategory(Tbl_Category tbl)
         {
-            CategoryDetail cd;
-                if(categoryId != null)
-            {
-                cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unitOfWork.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId)));
-            }
-            else
-            {
-                cd = new CategoryDetail();
-            }
-            return View("UpdateCategory", cd);
+            _unitOfWork.GetRepositoryInstance<Tbl_Category>().Add(tbl);
+            return RedirectToAction("Categories");
         }
         public ActionResult CategoryEdit(int catId)
         {

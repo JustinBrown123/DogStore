@@ -7,6 +7,7 @@ using System.Web;
 namespace OnlineStore.Repository
 {
     public class GenericUnitOfWork : IDisposable
+
     {
         private dbMyOnlineShoppingEntities DBEntity = new dbMyOnlineShoppingEntities();
         public IRepository<Tbl_EntityType> GetRepositoryInstance<Tbl_EntityType>() where Tbl_EntityType : class
