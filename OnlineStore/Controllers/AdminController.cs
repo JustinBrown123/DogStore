@@ -32,7 +32,8 @@ namespace OnlineStore.Controllers
         }
         public ActionResult Categories()
         {
-            List<Tbl_Category> allcategories = _unitOfWork.GetRepositoryInstance<Tbl_Category>().GetAllRecordsIQueryable().Where(i => i.IsDelete != true).ToList();
+            List<Tbl_Category> allcategories = _unitOfWork.GetRepositoryInstance<Tbl_Category>().GetAllRecordsIQueryable().Where(i => i.IsDelete != true
+            ).ToList();
             return View(allcategories);
         }
         public ActionResult AddCategory()

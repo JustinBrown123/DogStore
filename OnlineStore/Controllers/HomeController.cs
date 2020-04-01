@@ -1,5 +1,9 @@
 ﻿using OnlineStore.Models.Home;
 using System;
+using Newtonsoft.Json;
+using OnlineStore.DAL;
+using OnlineStore.Models;
+using OnlineStore.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,10 +13,10 @@ namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             HomeIndexViewModel model = new HomeIndexViewModel();
-            return View(model.CreateModel());
+            return View(model.CreateModel(search));
         }
 
         public ActionResult About()
