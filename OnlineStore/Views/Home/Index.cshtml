@@ -1,4 +1,7 @@
 ﻿@model OnlineStore.Models.Home.HomeIndexViewModel
+
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -66,38 +69,42 @@
 </div>
 
 <div class="row product-container">
-    @foreach (var item in Model.ListOfProducts)    
-        {
-            <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
-                <div class="thumbnail product-item" style="height:300px">
+    @foreach (var item in Model.ListOfProducts)
+    {
+        <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+            <div class="thumbnail product-item" style="height:300px">
 
-                    <img class="img-responsive" title="Click to View Product Detail"
-                         style="cursor:pointer;height:160px;width:100%"
-                         src="~/ProductImg/@item.ProductImage" />
+                <img class="img-responsive" title="Click to View Product Detail"
+                     style="cursor:pointer;height:160px;width:100%"
+                     src="~/ProductImg/@item.ProductImage" />
 
-                    <div class="caption">
-                        <h5>@item.ProductName</h5>
-                        <p>$@item.Price</p>
+                <div class="caption">
+                    <h5>@item.ProductName</h5>
+                    <p>$@item.Price</p>
 
-                        @if (item.Quantity > 0)
+                    @if (item.Quantity > 0)
+                    {
+                        <p>Available</p>
+                    }
+                    else
+                    {
+                        <p>Not Available</p>
+                    }
+
+                    <div class="product-item-badge">
+
+                        @if (item.IsFeatured == true)
                         {
-                            <p>Available</p>
-                        }
-                        else
-                        {
-                            <p>Not Available</p>
-                        }
-
-                        <div class="product-item-badge">
-
-                            @if (item.IsFeatured == true)
-                            {
-                                <p>New</p>}
-
-                        </div>
+                            <p>New</p>}
 
                     </div>
+
                 </div>
             </div>
-        }
+        </div>
+    }
+    <br />
+  
+  @Html.PagedListPager(Model.ListOfProducts, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
 </div>
