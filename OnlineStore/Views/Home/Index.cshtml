@@ -84,18 +84,23 @@
 
                     @if (item.Quantity > 0)
                     {
-                        <p>Available</p>
-                    }
+                        using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId}, FormMethod.Post))
+                        {
+                             <button type="submit" class="pull-right" href="#"><i class="fa fa-shopping-cart"></i> </button>
+                        }
+                                <p>Available</p>
+                        }
                     else
                     {
-                        <p>Not Available</p>
+                         <p>Not Available</p>
                     }
 
-                    <div class="product-item-badge">
+                   <div class="product-item-badge">
 
-                        @if (item.IsFeatured == true)
+                     @if (item.IsFeatured == true)
                         {
-                            <p>New</p>}
+                            <p>New</p>
+                        }
 
                     </div>
 
