@@ -71,6 +71,7 @@ namespace OnlineStore.Controllers
                             Product = product,
                             Quantity = 1
                         });
+                        break;
                     }                   
                 }
                     Session["cart"] = cart;
